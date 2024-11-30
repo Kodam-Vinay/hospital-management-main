@@ -1,3 +1,123 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes move_to_top {
+  from {
+    margin-top: 0;
+  }
+  to {
+    margin-top: -10px;
+  }
+}
+
+@keyframes move_to_bottom {
+  from {
+    margin-top: -10px;
+  }
+  to {
+    margin-top: 0;
+  }
+}
+
+.animation_move {
+  display: inline-block;
+  animation: move_to_bottom 0.5s ease-in-out forwards; /* Default animation */
+}
+
+.animation_move:hover {
+  animation: move_to_top 0.5s ease-in-out forwards; /* Trigger animation on hover */
+}
+
+.gradient_text_light {
+  background: linear-gradient(
+    0deg,
+    rgba(206, 206, 214, 1) 18%,
+    rgba(182, 229, 233, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient_text_dark {
+  background: linear-gradient(
+    0deg,
+    rgba(110, 110, 115, 1) 18%,
+    rgba(45, 47, 47, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* for buttons */
+
+.button-gradient-slide {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  background: transparent;
+}
+
+.button-gradient-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 200%;
+  height: 100%;
+  transition: transform 1s ease;
+  z-index: 0;
+}
+
+.button-gradient-slide span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark mode styles */
+.button-gradient-slide-dark {
+  background: linear-gradient(
+    270deg,
+    rgba(110, 110, 115, 1) 18%,
+    rgba(45, 47, 47, 1) 100%
+  );
+}
+
+.button-gradient-slide-dark::before {
+  background: linear-gradient(
+    90deg,
+    rgba(110, 110, 115, 1) 18%,
+    rgba(45, 47, 47, 1) 100%
+  );
+}
+
+.button-gradient-slide-dark:hover::before {
+  transform: translateX(50%);
+}
+
+/* Light mode styles */
+.button-gradient-slide-light {
+  background: linear-gradient(
+    270deg,
+    rgba(206, 206, 214, 1) 18%,
+    rgba(182, 229, 233, 1) 100%
+  );
+}
+
+.button-gradient-slide-light::before {
+  background: linear-gradient(
+    90deg,
+    rgba(206, 206, 214, 1) 18%,
+    rgba(182, 229, 233, 1) 100%
+  );
+}
+
+.button-gradient-slide-light:hover::before {
+  transform: translateX(50%);
+}

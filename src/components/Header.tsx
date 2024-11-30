@@ -13,6 +13,7 @@ import NavigationLinks from "./NavigationLinks";
 import useDeviceResize from "../hooks/useDeviceResize";
 import { useNavigate } from "react-router-dom";
 import { ALL_NAVIGATION_LINKS } from "../utils/ReactConstants";
+import { ALL_COLORS } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ const Header = () => {
   const isDarkTheme = useAppSelector(
     (store) => store?.persistSliceReducer?.theme?.isDarkTheme
   );
+
+  const applyFontGradient = isDarkTheme
+    ? "gradient_text_light"
+    : "gradient_text_dark";
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -34,16 +39,17 @@ const Header = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: isDarkTheme ? "#333" : "",
+          background: "transparent",
+          boxShadow: "none",
         }}
       >
         <Toolbar>
           <IconButton
             size="small"
             edge="start"
-            color="inherit"
             aria-label="open drawer"
             onClick={() => navigate(ALL_NAVIGATION_LINKS.home.path)}
+            className={applyFontGradient}
           >
             Logo
           </IconButton>
@@ -59,7 +65,9 @@ const Header = () => {
           {width < 640 && (
             <IconButton
               sx={{
-                color: isDarkTheme ? "white" : "whitesmoke",
+                color: isDarkTheme
+                  ? ALL_COLORS.DARK_FONT_BG_COLOR
+                  : ALL_COLORS.LIGHT_FONT_BG_COLOR,
               }}
             >
               <MenuIcon />

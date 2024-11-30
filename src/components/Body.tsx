@@ -1,13 +1,19 @@
 import { Box } from "@mui/material";
 import Header from "./Header";
-import { Outlet, useLocation } from "react-router-dom";
-import { useAppDispatch } from "../utils/hooks";
+import { useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import { useEffect } from "react";
 import { storeActivePath } from "../redux/slices/pathSlice";
+import Contact from "../pages/Contact";
+import ContactHeader from "./ContactHeader";
+import { ALL_COLORS } from "../utils/constants";
 
 const Body = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+  const isDarkTheme = useAppSelector(
+    (store) => store?.persistSliceReducer?.theme?.isDarkTheme
+  );
 
   useEffect(() => {
     dispatch(storeActivePath(pathname));
@@ -17,20 +23,26 @@ const Body = () => {
     <Box
       sx={{
         height: "100vh",
+        background: isDarkTheme
+          ? ALL_COLORS.MAIN_BG_DARK_GRADIENT
+          : ALL_COLORS.MAIN_BG_LIGHT_GRADIENT,
+        padding: 1,
+        overflow: "hidden",
       }}
     >
+      <ContactHeader />
       <Header />
       <Box
         sx={{
           display: "flex",
           height: {
-            vxs: "90vh",
-            lg: "91vh",
+            vxs: "80vh",
+            lg: "84vh",
           },
           padding: 1,
         }}
       >
-        <Outlet />
+        {/* <Contact /> */}
       </Box>
     </Box>
   );

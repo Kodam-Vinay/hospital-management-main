@@ -1,18 +1,24 @@
+// import { useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import { ALL_NAVIGATION_LINKS } from "../utils/ReactConstants";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../utils/hooks";
-import { useRef } from "react";
+import { applyFontAndOtherStyles } from "../utils/constants";
 
 const NavigationLinks = () => {
-  const ref = useRef<HTMLElement>();
+  // const ref = useRef<HTMLElement>();
   const isDarkTheme = useAppSelector(
     (store) => store?.persistSliceReducer?.theme?.isDarkTheme
   );
-  const { pathname } = useLocation();
-  const handleNavigationLink = () => {
-    ref?.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  // const { pathname } = useLocation();
+  // const handleNavigationLink = () => {
+  //   ref?.current?.scrollIntoView({ behavior: "smooth" });
+  // };
+
+  const applyFontGradient = isDarkTheme
+    ? "gradient_text_light"
+    : "gradient_text_dark";
+
   return (
     <Box
       sx={{
@@ -27,26 +33,20 @@ const NavigationLinks = () => {
     >
       {Object.keys(ALL_NAVIGATION_LINKS).map((eachNavigation) => {
         const link = ALL_NAVIGATION_LINKS[eachNavigation];
-        const isActive = pathname === link.path;
+        // const isActive = pathname === link.path;
         return (
-          <Box
-            className={`${
-              isDarkTheme
-                ? "text-white hover:opacity-80"
-                : "text-gray-200 hover:text-gray-400"
-            } cursor-pointer`}
-            onClick={handleNavigationLink}
+          <Typography
+            key={ALL_NAVIGATION_LINKS[eachNavigation].name}
+            component="div"
+            sx={{
+              flexGrow: 1,
+              ...applyFontAndOtherStyles(isDarkTheme),
+              fontWeight: 500,
+            }}
+            className={applyFontGradient}
           >
-            <Typography
-              component="div"
-              sx={{
-                flexGrow: 1,
-                color: isActive ? "#d1cdcd" : "",
-              }}
-            >
-              {link.name}
-            </Typography>
-          </Box>
+            {link.name}
+          </Typography>
         );
       })}
     </Box>
